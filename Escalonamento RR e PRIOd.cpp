@@ -18,7 +18,7 @@ struct processo
     int tempo = 0;
     int status = 1;
 };
-struct processo p[9];
+struct processo p[10];
 
 int inicializa()
 {
@@ -37,8 +37,9 @@ int inicializa()
 
 void round_robbin()
 {
-    int contadorFila = 9; // Contagem de processos na fila.
-    int frenteFila = 0;   // Primeira posição da fila
+    inicializa();
+    // int contadorFila = 9; // Contagem de processos na fila.
+    int frenteFila = 0; // Primeira posição da fila
     while (contadorFila != 0)
     {
         while (&p[frenteFila] <= 0)
@@ -94,6 +95,7 @@ void processa()
 }
 void priord()
 {
+    inicializa();
     while (contadorFila != 0)
     { //enquanto houver processo na fila
         while (&p[frenteFila] <= 0)
@@ -110,7 +112,7 @@ void priord()
             if (p[frenteFila].prioridadeDinamica == 10)
             {
                 processa();
-                p[frenteFila].prioridadeDinamica == p[frenteFila].prioridadeOriginal;
+                p[frenteFila].prioridadeDinamica = p[frenteFila].prioridadeOriginal;
             }
             else
             {
@@ -121,7 +123,7 @@ void priord()
 
                 printf("\nProcesso ignorado, aumentado sua prioridade para: %d\n\n", p[frenteFila].prioridadeDinamica);
 
-                frenteFila++; //Atualiza a primeira posição da fila.
+                //frenteFila++; //Atualiza a primeira posição da fila.
                 if (frenteFila > 9)
                 { //Faz a rotação
                     frenteFila = 0;
@@ -140,21 +142,21 @@ void priord()
 
 int main()
 {
-    int op = 10;
+    int opc = 3;
 
-    inicializa();
-
-    do
+    while (opc != 0)
     {
+        opc = 0;
         cout << ":::: Escolha o Metodo de Escalonamento         ::::\n";
         cout << ":::: Ha 10 processos!                          ::::\n";
         cout << ":::: 1 - Escalonamento Round-Robbin            ::::\n";
         cout << ":::: 2 - Escalonamento de Prioridade Dinamica  ::::\n";
+        cout << ":::: 0 - Sair                                  ::::\n";
         cout << "\n:::: ESCOLHA O ESCALONAMENTO = ";
 
-        cin >> op;
+        cin >> opc;
 
-        switch (op)
+        switch (opc)
         {
         case 1:
             cout << "\nEscalonamento Round-Robbin";
@@ -167,9 +169,7 @@ int main()
         case 0:
             break;
         }
-    } while (op != 0);
-
-    getchar();
+    }
 
     return 0;
 }
